@@ -1,0 +1,22 @@
+citHeader("To cite invacost in publications use:")
+
+citEntry(entry = "Article",
+         title        = "Analysing global economic costs of invasive alien species with the invacost R package.",
+         author       = personList(as.person("Boris Leroy"),
+                                   as.person("Andrew M Kramer"),
+                                   as.person("Anne-Charlotte Vaissière"),
+                                   as.person("Franck Courchamp"),
+                                   as.person("Christophe Diagne")),
+         journal      = "biorXiv",
+         year         = "2020",
+         volume       = "",
+         number       = "",
+         pages        = "",
+         url          = "https://doi.org/10.1101/2020.12.10.419432",
+         
+         textVersion  =
+           paste("Leroy Boris, Kramer Andrew M, Vaissière Anne-Charlotte, Courchamp Franck & Diagne Christophe (2020).",
+                 "Analysing global economic costs of invasive alien species with the invacost R package.",
+                 "biorXiv.",
+                 "https://doi.org/10.1101/2020.12.10.419432")
+)

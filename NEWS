@@ -1,0 +1,131 @@
+invacost v1.0 (Release date: 3 December 2020)
+==============
+* Official release of invacost to be uploaded to the CRAN
+* Several minor fixes
+
+invacost v0.3-9 (Release date: 2 December 2020)
+==============
+* Updated all help files
+* Changed default values in summarizeCosts() (ex-calculateRawAvgCosts())
+
+
+invacost v0.3-8 (Release date: 1 December 2020)
+==============
+* Added function getInvaCostVersion() to download older releases of InvaCost
+
+invacost v0.3-7 (Release date: 30 November 2020)
+==============
+* Changed function names
+* Updated to invacost v3.0
+* Changed default values in modelCosts (ex-costTrendOverTime())
+
+invacost v0.3-5 (Release date: 3 November 2020)
+==============
+* Fixed all CRAN checks warnings and notes
+* Changes to documentation before CRAN submission
+* Added error checks
+
+invacost v0.3-4 (Release date: 10 August 2020)
+==============
+
+* Added a function to make a "pretty" summary of model summaries
+
+invacost v0.3-3 (Release date: 3 August 2020)
+==============
+
+* Fixed a bug with RMSE estimation for robust models when data did not have
+values for all years
+* Added description of columns for the invacost dataset
+* Updated to invacost version V2-1
+* Added a column with invacost version
+
+
+invacost v0.3-2 (Release date: 17 July 2020)
+==============
+
+* Added a feature in plot-method to allow user to select which model outputs are included
+  - This applies to either single plot or facet plot and shares model names
+    costTrendOverTime
+
+Fixed erroneous RMSE of GAM models
+
+
+invacost v0.3-1 (Release date: 7 July 2020)
+==============
+
+Fixed a bug in costTrendOverTime when incomplete.years.weight was set to NULL
+
+* General improvements for calculrateRawCosts:
+  - added annual costs in the output
+  - improved handling of the last year with a new argument
+
+invacost v0.3 (Release date: 3 July 2020)
+==============
+
+* Major changes to the models in costTrendOverTime(): 
+  - added robust regression models (thanks Andrew Kramer!)
+  - changed error estimations for ordinary least square regressions in order
+  to account for heteroscedasticity and temporal autocorrelation
+  - changed GAM model family to use Gaussian Location-Scale family, in order
+  to account for heteroscedasticity
+  - added the summary of models directly in the output of costTrendOverTime()
+* Added precisions about the error bands for MARS models in the help file
+
+invacost v0.2-4 (Release date: 7 April 2020)
+==============
+
+Changes:
+
+* Changed the method used to manually specify graphical parameters
+
+
+invacost v0.2-3 (Release date: 25 February 2020)
+==============
+
+Changes:
+
+* Added the number of estimates and the number of "year values" (total
+number of individual values spread over all years in raw costs)
+
+invacost v0.2-2 (Release date: 27 January 2020)
+==============
+
+Changes:
+
+* Major change in how objects are plotted. Now, basic functions will not make
+any plot, and all plots will be called with plot(object). 
+* Greatly improved plotting of invacost objects, included new possibilities and
+arguments:
+  - choice between bars or points, average or total costs for raw costs
+  - choice of a single or multiple facets for cost trends over time
+
+invacost v0.2-1 (Release date: 22 January 2020)
+==============
+
+Changes:
+
+* Fixed an issue with calculateRawAvgCosts: previously the average per period
+was calculated on the basis of effective years (i.e., empty years were excluded
+from the average). Now, the average will always be based on the entire period.
+There is no reason to believe that incomplete year are only those for which
+we have no data at all, so we should not make any tentative correction based on
+so-called "effective years" here. Furthermore, it implied comparing different
+time intervals (e.g., 1 year vs. 10 years), which is generally inadequate. From
+now on, the function will make a raw average per period of time regardless of
+data completion.
+
+
+invacost v0.2 (Release date: 19 December 2019)
+==============
+
+Changes:
+
+* Added the calculateRawAvgCosts function
+
+
+invacost v0.1 (Release date: 30 November 2019)
+==============
+
+Changes:
+
+* First version of the package
