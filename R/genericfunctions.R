@@ -168,6 +168,11 @@ str.invacost.costsummary <- function(object, ...)
 #' for the Y axis (cost values)
 #' @param models the models the user would like to appear in the plots. Can be
 #' any subset of the models included in 'modelCosts'. Default is all models.
+#' @param evaluation.metric \code{TRUE} or \code{FALSE}. If \code{TRUE}, the
+#' Root Mean Square Error evaluation metric will be displayed on bottom right of
+#' the graph (except for quantile regressions, for which it not relevant). The
+#' displayed RMSE is the one based on calibration data only (see the slot
+#' \code{RMSE} in your \code{\link{modelCosts}} object)
 #' @param graphical.parameters set this to \code{"manual"} if you want to 
 #' customise \code{ggplot2} parameters. 
 #' By default, the following layers are configured: \code{ylab}, \code{xlab}, 
@@ -219,7 +224,9 @@ str.invacost.costsummary <- function(object, ...)
 #'                                   endcolumn = "Probable_ending_year_adjusted")
 #' 
 #' ### Analysis
-#' res <- modelCosts(db.over.time)
+#' res <- modelCosts(db.over.time,
+#'                   minimum.year = 1970,
+#'                   maximum.year = 2020)
 #' 
 #' ### Visualisation
 #' plot(res)
@@ -236,6 +243,7 @@ plot.invacost.costmodel <- function(x,
                                                "gam",
                                                "mars",
                                                "quantile"),
+                                    evaluation.metric = FALSE,
                                     graphical.parameters = NULL,
                                     ...)
 {
@@ -299,6 +307,8 @@ plot.invacost.costmodel <- function(x,
     paste0(model.preds$Details[model.preds$model == "Quantile regression"],
            " regression")
   
+  
+  
   # Ordering model names
   model.preds$Model <- factor(model.preds$Model,
                               levels = c("OLS linear regression", 
@@ -324,7 +334,7 @@ plot.invacost.costmodel <- function(x,
   models[models=="robust.quadratic"] <- "Robust quadratic regression"
   model.preds <- model.preds[model.preds$Model %in% models,]
   
-  
+
   # Creating a colourblind palette (Wong 2011)
   # to best distinguish models
   alpha <- round(.8 * 255)
@@ -345,6 +355,21 @@ plot.invacost.costmodel <- function(x,
             `Quantile 0.9 regression` = grey(0, alpha = alpha / 255)
   )
   
+
+  if(evaluation.metric)
+  {
+    model.rmse <- x$RMSE[, 1]
+    
+    #Relabel models parameter to match plot labeling from above
+    names(model.rmse)[names(model.rmse) == "ols.linear"] <- "OLS linear"
+    names(model.rmse)[names(model.rmse) == "ols.quadratic"] <- "OLS quadratic"
+    names(model.rmse)[names(model.rmse) == "gam"] <- "GAM"
+    names(model.rmse)[names(model.rmse) == "mars"] <- "MARS"
+    names(model.rmse)[names(model.rmse) == "robust.linear"] <- "Robust linear"
+    names(model.rmse)[names(model.rmse) == "robust.quadratic"] <- "Robust quadratic"
+    
+    model.rmse <- model.rmse[-grep("qt", names(model.rmse))]
+  }
   
   if(plot.type == "single")
   {
@@ -363,10 +388,21 @@ plot.invacost.costmodel <- function(x,
                 size = 1) +
       scale_discrete_manual(aesthetics = "col",
                             values = cols)
+    
+    if(evaluation.metric)
+    {
+      p <-
+        p + labs(tag = paste0("RMSE\n",
+                              paste(names(model.rmse), "/", round(model.rmse, 3), collapse = "\n"))) +
+        theme(plot.tag = element_text(hjust = 1, vjust = 0),
+              plot.tag.position = c(1, 0.05))
+    }
+    
       
   } else if(plot.type == "facets")
   { 
     # 6. Facet plot --------------------
+
     p <-
       p +
       geom_point(data = x$cost.data, 
@@ -391,9 +427,20 @@ plot.invacost.costmodel <- function(x,
                             values = cols)
     message("Note that MARS error bands are prediction intervals and not confidence interval (see ?plot.invacost.costmodel)\n")
     
+    
+    if(evaluation.metric)
+    {
+      p <-
+        p + labs(tag = paste0("RMSE\n",
+                              paste(names(model.rmse), "/", round(model.rmse, 3), collapse = "\n"))) +
+        theme(plot.tag = element_text(hjust = 1, vjust = 0),
+              plot.tag.position = c(0.95, 0.05))
+    }
   }
-  
+    
+    
 
+  
   return(p)
 }
 
@@ -447,11 +494,14 @@ plot.invacost.costmodel <- function(x,
 #'                                   endcolumn = "Probable_ending_year_adjusted")
 #'                                   
 #' ### Analysis
-#' res <- summarizeCosts(db.over.time)
+#' res <- summarizeCosts(db.over.time,
+#'                       minimum.year = 1970,
+#'                       maximum.year = 2020)
 #' 
 #' ### Visualisation
 #' plot(res)
-#' plot(res, plot.type = "bars")}
+#' plot(res, plot.type = "bars")
+#' }
 #' @method plot invacost.costsummary
 plot.invacost.costsummary <- function(x,
                                   plot.breaks = 10^(-15:15),

@@ -1,3 +1,16 @@
+invacost v1.1-4 (Release date: 5 February 2022)
+==============
+* Update to invacost v4.1
+
+invacost v1.1-3 (Release date: 10 December 2021)
+==============
+* Added automatic checks for correcting errors in the database
+* Added an option to include RMSE in model graphs
+
+invacost v1.1 (Release date: 10 June 2021)
+==============
+* Fixed a small taxonomic error in the invacost database
+
 invacost v1.1 (Release date: 8 June 2021)
 ==============
 * Updated to invacost v4.0

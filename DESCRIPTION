@@ -1,8 +1,8 @@
 Package: invacost
 Type: Package
 Title: Analyse Biological Invasion Costs with the 'InvaCost' Database
-Version: 1.1
-Date: 2021-06-09
+Version: 1.1-4
+Date: 2022-02-05
 Author: Boris Leroy [cre, aut], Andrew Kramer [aut], Anne-Charlotte Vaissière [ctb], Christophe Diagne [ctb]
 Maintainer: Boris Leroy <leroy.boris@gmail.com>
 Description: Provides an up-to-date version of the 'InvaCost' database 
@@ -11,10 +11,10 @@ Description: Provides an up-to-date version of the 'InvaCost' database
 License: GPL (>= 2.0)
 Encoding: UTF-8
 Depends: R (>= 2.10), ggplot2
-Imports: dplyr, earth, graphics, grDevices, lmtest, mgcv, quantreg,
-        robustbase, sandwich, scales, stats, utils
-RoxygenNote: 7.1.1
+Imports: dplyr, earth, grDevices, lmtest, mgcv, quantreg, robustbase,
+        sandwich, scales, stats, utils
+RoxygenNote: 7.1.2
 NeedsCompilation: no
-Packaged: 2021-06-09 14:59:31 UTC; Farewell20
+Packaged: 2022-02-05 10:41:19 UTC; Farewell20
 Repository: CRAN
-Date/Publication: 2021-06-09 15:20:05 UTC
+Date/Publication: 2022-02-05 11:00:02 UTC
